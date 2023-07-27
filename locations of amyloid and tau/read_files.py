@@ -1,8 +1,6 @@
 # Read the Stereoseq data
 import utils
-import pandas as pd
 import stereo as st
-import pyarrow.feather
 
 
 sample = "B01809C2"
