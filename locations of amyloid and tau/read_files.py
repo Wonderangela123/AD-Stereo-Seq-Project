@@ -1,4 +1,4 @@
-# Read the Stereoseq data through python and write the gene expression matrix into feather file and gene name into csv 
+# Read the Stereoseq data
 import utils
 import pandas as pd
 import stereo as st
