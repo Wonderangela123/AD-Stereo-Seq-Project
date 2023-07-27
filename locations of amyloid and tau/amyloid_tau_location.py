@@ -11,6 +11,6 @@ st.io.read_gef_info(data_path)
 data1 = st.io.read_gef(file_path=data_path, bin_type='cell_bins')
 df = data1.to_df()
 df = df.T
-pyarrow.feather.write_feather(df, "/work/aliu10/AD_Stereoseq_Project/processed_data/{}_matrix.feather".format(sample))
+pyarrow.feather.write_feather(df, "/work/aliu10/AD_Stereoseq_Project/processed_data/{}/matrix.feather".format(sample))
 gene_list = pd.DataFrame(df.index)
-gene_list.to_csv("/work/aliu10/AD_Stereoseq_Project/processed_data/{}_gene_list.csv".format(sample))
+gene_list.to_csv("/work/aliu10/AD_Stereoseq_Project/processed_data/{}/gene_list.csv".format(sample))
