@@ -77,9 +77,10 @@ data.tl.find_marker_genes(
         cluster_res_key='leiden',
         method='t_test',
         use_highly_genes=False,
-        use_raw=True
+        use_raw=True,
+        output="/work/aliu10/AD_Stereoseq_Project/processed_data/{}/markers.csv".format(sample)
         )
-### filter out genes based on log fold change and fraction of genes expressing the gene within and outside each group
+### filter out genes based on log fold change and fraction of genes expressing the gene within and outside each group (optional)
 data.tl.filter_marker_genes(
     marker_genes_res_key='marker_genes',
     min_fold_change=1,
