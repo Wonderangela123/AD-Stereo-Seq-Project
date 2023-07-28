@@ -89,3 +89,24 @@ data.tl.filter_marker_genes(
     res_key='marker_genes_filtered',
     output="/work/aliu10/AD_Stereoseq_Project/processed_data/{}/markers.csv".format(sample)
 )
+
+## cell type annotation
+import stereo as st
+from stereo.core.stereo_exp_data import AnnBasedStereoExpData
+import warnings
+warnings.filterwarnings('ignore')
+
+ref_file = '/work/ygong/stereo_seq_public/MIT_AD.h5ad'
+ref = AnnBasedStereoExpData(ref_file)
+
+# preprocessing
+ref.tl.log1p()
+ref.tl.normalize_total()
+
+data.tl.single_r(
+        ref_exp_data=ref,
+        ref_use_col='broad.cell.type',
+        res_key='annotation'
+        )
+
+
