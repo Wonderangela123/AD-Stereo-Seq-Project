@@ -8,6 +8,7 @@ cd stereopy
 python setup.py install
 
 conda install -c conda-forge notebook
+conda install -c conda-forge scanpy
 
 
 ## R environment
