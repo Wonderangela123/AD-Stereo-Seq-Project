@@ -90,7 +90,7 @@ data.tl.filter_marker_genes(
     output="/work/aliu10/AD_Stereoseq_Project/processed_data/{}/markers.csv".format(sample)
 )
 
-## save StereoExpObject as AnnData as h5ad file
+## save StereoExpObject as AnnData in h5ad file
 st.io.stereo_to_anndata(data,
                         flavor='seurat',
                         output='/work/aliu10/AD_Stereoseq_Project/processed_data/{}/{}.stereo.h5ad'.format(sample, sample))
