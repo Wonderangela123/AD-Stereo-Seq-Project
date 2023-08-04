@@ -14,3 +14,12 @@ ref = AnnData2SCE(ref)
 ## labels: cell types; assay.type.test/ref: An integer scalar or string specifying the assay of test/ref containing the relevant expression matrix.
 anno_dict_cluster = SingleR(test, ref, clusters=test$leiden, labels=ref$broad.cell.type, assay.type.test=1, assay.type.ref=1) ## cluster-level annotation
 anno_dict_cell = SingleR(test, ref, labels=ref$broad.cell.type, assay.type.test=1, assay.type.ref=1) ## cell-level annotation
+
+anno_dict_cluster$cluster = row.names(anno_dict_cluster)
+anno_dict_cluster$cluster1 = paste0("'",anno_dict_cluster$cluster,"'")
+anno_dict_cluster$labels1 = paste0("'",anno_dict_cluster$labels,"'")
+anno_dict_cluster$dict = paste(anno_dict_cluster$cluster1, anno_dict_cluster$labels1, sep = ":")
+
+write.table(annotation_dict_cluster, file = '/work/aliu10/AD_Stereoseq_Project/processed_data/B01809C2/annotation_dict_cluster.txt')
+
+
