@@ -78,7 +78,7 @@ data.tl.find_marker_genes(
         method='t_test',
         use_highly_genes=False,
         use_raw=True,
-        output="/work/aliu10/AD_Stereoseq_Project/processed_data/{}/markers.csv".format(sample)
+        output="/work/aliu10/AD_Stereoseq_Project/processed_data/{}/Gene_markers.csv".format(sample)
         )
 ### filter out genes based on log fold change and fraction of genes expressing the gene within and outside each group (optional)
 data.tl.filter_marker_genes(
@@ -87,7 +87,7 @@ data.tl.filter_marker_genes(
     min_in_group_fraction=0.25,
     max_out_group_fraction=0.5,
     res_key='marker_genes_filtered',
-    output="/work/aliu10/AD_Stereoseq_Project/processed_data/{}/markers.csv".format(sample)
+    output="/work/aliu10/AD_Stereoseq_Project/processed_data/{}/Gene_markers.csv".format(sample)
 )
 
 ## save StereoExpObject as AnnData in h5ad file
