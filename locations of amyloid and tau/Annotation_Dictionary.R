@@ -11,5 +11,5 @@ test = AnnData2SCE(data)
 ref = AnnData2SCE(ref)
 
 ## Obtain annotation dictionary
-## labels: cell types; assay.type.test: An integer scalar or string specifying the assay of test containing the relevant expression matrix.
+## labels: cell types; assay.type.test/ref: An integer scalar or string specifying the assay of test/ref containing the relevant expression matrix.
 annotation_dict = SingleR(test, ref, clusters=test$leiden, labels=ref$broad.cell.type, assay.type.test=1, assay.type.ref=1) 
