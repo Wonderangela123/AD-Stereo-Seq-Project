@@ -21,7 +21,7 @@ conda install -c conda-forge r-irkernel  ## use R in notebook
 
 conda install -c conda-forge r-seurat
 
-## install "SingleR" in R
+## install Bioconda packages in R
 if (!require("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
 
