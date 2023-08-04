@@ -26,3 +26,6 @@ if (!require("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
 
 BiocManager::install("SingleR")
+
+## install "tar.gz" in linux 
+R CMD INSTALL zellkonverter_1.10.1.tar.gz
