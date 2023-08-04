@@ -17,11 +17,23 @@ anno_dict_cell = SingleR(test, ref, labels=ref$broad.cell.type, assay.type.test=
 
 
 ## The function "data.tl.annotation" requires "Categorical categories must be unique", hence, create a variable to paste cluster and labels together.
+## cluster annotation
 anno_dict_cluster$cluster = row.names(anno_dict_cluster)
 anno_dict_cluster$cluster1 = paste0("'",anno_dict_cluster$cluster,"'")
 anno_dict_cluster$labels1 = paste0("'",anno_dict_cluster$labels,"'")
 anno_dict_cluster$dict = paste(anno_dict_cluster$cluster1, anno_dict_cluster$labels1, sep = ":")
 
 write.table(anno_dict_cluster, file = '/work/aliu10/AD_Stereoseq_Project/processed_data/B01809C2/annotation_dict_cluster.txt')
+
+
+
+## cell annotation
+anno_dict_cell$cell = row.names(anno_dict_cell)
+anno_dict_cell$cell1 = paste0("'",anno_dict_cell$cell,"'")
+anno_dict_cell$labels1 = paste0("'",anno_dict_cell$labels,"'")
+anno_dict_cell$dict = paste(anno_dict_cell$cell1, anno_dict_cell$label1, sep = ":")
+
+write.table(anno_dict_cell, file = '/work/aliu10/AD_Stereoseq_Project/processed_data/B01809C2/annotation_dict_cell.txt')
+
 
 
