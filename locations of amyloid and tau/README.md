@@ -1,4 +1,4 @@
-# 1. Find differential genes (marker genes) by comparing gene expressions among clusters.
+## 1. Find differential genes (marker genes) by comparing gene expressions among clusters.
 
 # 2. Generate annotation dictionary for cell types.
 
