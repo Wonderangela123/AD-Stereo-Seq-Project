@@ -27,11 +27,6 @@ if (!require("BiocManager", quietly = TRUE))
 
 BiocManager::install("SingleR")
 
-if (!require("BiocManager", quietly = TRUE))
-    install.packages("BiocManager")
-
-BiocManager::install("scRNAseq")
-
 ## install "tar.gz" in linux 
-wget https://bioconductor.org/packages/release/bioc/src/contrib/zellkonverter_1.10.1.tar.gz
+## download from https://bioconductor.org/packages/release/bioc/src/contrib/zellkonverter_1.10.1.tar.gz
 R CMD INSTALL zellkonverter_1.10.1.tar.gz
