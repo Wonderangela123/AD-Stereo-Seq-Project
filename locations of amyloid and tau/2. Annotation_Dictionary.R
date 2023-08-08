@@ -1,14 +1,9 @@
 library(SingleR)
-library(anndata)  ## read_h5ad
-library(zellkonverter) ## AnnData2SCE
+library(zellkonverter) 
 
-## read h5ad files into AnnData objects
-data = read_h5ad(file = '/work/aliu10/AD_Stereoseq_Project/processed_data/B01809C2/B01809C2.stereo.h5ad')
-ref = read_h5ad(file = '/work/ygong/stereo_seq_public/MIT_AD.h5ad')
-
-## convert AnnData objects into SingleCellExperiment objects
-test = AnnData2SCE(data)
-ref = AnnData2SCE(ref)
+## read h5ad files into SingleCellExperiment objects
+test = readH5AD(file = '/work/aliu10/AD_Stereoseq_Project/processed_data/B01809C2/B01809C2.stereo.h5ad')
+ref = readH5AD(file = '/work/ygong/stereo_seq_public/MIT_AD.h5ad')
 
 ## Obtain annotation dictionary
 ## labels: cell types; assay.type.test/ref: An integer scalar or string specifying the assay of test/ref containing the relevant expression matrix.
