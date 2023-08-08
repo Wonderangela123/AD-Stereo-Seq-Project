@@ -14,3 +14,6 @@ data.tl.annotation(
 
 ## cluster-level annotations
 data.plt.cluster_scatter(res_key='anno_cluster_leiden')
+
+## check if the same cell types are close, e.g., "Ex.1" is close to "Ex.3"
+data.plt.umap(res_key='umap', cluster_key='anno_cluster_leiden')
