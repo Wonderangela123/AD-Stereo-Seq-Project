@@ -3,6 +3,7 @@ import pandas as pd
 
 
 # read the Anndata h5ad file
+sample = "B01809C2"
 ann_h5ad = '/work/aliu10/AD_Stereoseq_Project/processed_data/{}/{}.stereo.h5ad'.format(sample, sample)
 data = st.io.read_ann_h5ad(
         file_path=ann_h5ad,
