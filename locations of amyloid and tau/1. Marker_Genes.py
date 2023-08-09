@@ -93,7 +93,7 @@ data.tl.filter_marker_genes(
 ## save StereoExpObject as AnnData in h5ad file
 st.io.stereo_to_anndata(data,
                         flavor='seurat',
-                        output='/work/aliu10/AD_Stereoseq_Project/processed_data/{}/{}.stereo.h5ad'.format(sample, sample))
+                        output='/work/aliu10/AD_Stereoseq_Project/processed_data/{}/{}.anndata.h5ad'.format(sample, sample))
 
 
 ## write a new h5ad with StereoExpData, if key_record = None, it will use the res_key stored in data.tl.key_record
