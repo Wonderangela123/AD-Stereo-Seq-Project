@@ -96,3 +96,11 @@ st.io.stereo_to_anndata(data,
                         output='/work/aliu10/AD_Stereoseq_Project/processed_data/{}/{}.stereo.h5ad'.format(sample, sample))
 
 
+## write a new h5ad with StereoExpData, if key_record = None, it will use the res_key stored in data.tl.key_record
+st.io.write_h5ad(data,
+                 use_raw=True,
+                 use_result=True,
+                 key_record=None,
+                 output='/work/aliu10/AD_Stereoseq_Project/processed_data/{}/{}.stereo.h5ad'.format(sample, sample))
+
+
