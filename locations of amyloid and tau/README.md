@@ -3,3 +3,9 @@
 2. Generate annotation dictionary for cell types based on marker genes/cell-type-specific (CTS) genes. (cell level and cluster level)
 
 3. Annotate clusters using annotation dictionary.
+
+4. Extract the clusters annotated as "microglia" from all cells and cluster the annotated "microgia" again
+
+5. Annotate the new clusters again.
+
+6. Use the subtype "microglia" to match the gene expression patterns(top 10) with known public data.
