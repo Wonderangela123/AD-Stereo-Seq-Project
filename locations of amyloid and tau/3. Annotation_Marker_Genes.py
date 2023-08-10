@@ -34,11 +34,12 @@ markers = pd.read_csv("/work/aliu10/AD_Stereoseq_Project/processed_data/B01809C2
 
 ## microglia
 mic = markers.loc[:,["7_pvalues_adj", "7_log2fc", "16_pvalues_adj", "16_log2fc"]]  ## extract microglia (cluster 7 and 16)
-mic = mic.loc[mic.loc[:,"7_log2fc"] * mic.loc[:,"16_log2fc"] > 0] ## keep only the genes with the same expression regulation patterns in various clusters
 mic = mic.loc[mic.loc[:,"7_pvalues_adj"] < 0.05] ## set the singnificance level as 0.05
 mic = mic.loc[mic.loc[:,"16_pvalues_adj"] < 0.05]
 
-import numpy as np
-mic['regulation'] = np.where(mic['7_log2fc'] > 0, "Upregulation", "Downregulation")
-mic.iloc[:,-1].to_csv("/work/aliu10/AD_Stereoseq_Project/processed_data/B01809C2/gene_regulation_microglia.csv", sep = " ")
+gene_name = pd.DataFrame(data.genes.gene_name)
+
+microglia = pd.merge(gene_name, mic, left_index=True, right_index=True)
+microglia.to_csv("/work/aliu10/AD_Stereoseq_Project/processed_data/B01809C2/gene_expression_microglia.csv", sep = " ", index = False)
+
 
