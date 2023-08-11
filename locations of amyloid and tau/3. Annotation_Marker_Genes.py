@@ -21,17 +21,28 @@ data.tl.annotation(
         res_key='anno_cluster_leiden' ## store annotation in "res_key" as a keyward
         )
 
+# ## check if the same cell types are close, e.g., "Mic.7" is close to "Mic.16"
+# data.plt.umap(res_key='umap', cluster_key='anno_cluster_leiden')
+
 # Subset the cells annotated as "microglia"
 id = data.tl.result['anno_cluster_leiden']['group'].str.contains('Mic')
 id = id[id].index.tolist()
 
-data.cells.cell_name = data.cells.cell_name[id]
-data.exp_matrix = data.exp_matrix[id]
+# read annData object
+sample = "B01809C2"
+data1 = st.io.read_ann_h5ad(
+        file_path='/work/aliu10/AD_Stereoseq_Project/processed_data/{}/{}.anndata.h5ad'.format(sample, sample),
+        spatial_key=None,
+        )
+
+data1.bin_type = "cell_bins"
+data1.cells.cell_name = data1.cells.cell_name[id]
+data1.exp_matrix = data1.exp_matrix[id]
 
 # Reclustering
-data.tl.raw_checkpoint()
+data1.tl.raw_checkpoint()
 
-data.tl.highly_variable_genes(
+data1.tl.highly_variable_genes(
             min_mean=0.0125,
             max_mean=3,
             min_disp=0.5,
@@ -39,38 +50,28 @@ data.tl.highly_variable_genes(
             res_key='highly_variable_genes'
             )
 
-data.tl.pca(
+data1.tl.scale() 
+
+data1.tl.pca(
         use_highly_genes=True,
         n_pcs=30,
         res_key='pca'
         )
 
-data.tl.neighbors(pca_res_key='pca', res_key='neighbors')
+data1.tl.neighbors(pca_res_key='pca', res_key='neighbors')
 
-data.tl.umap(
+data1.tl.umap(
         pca_res_key='pca',
         neighbors_res_key='neighbors',
         res_key='umap'
         )
 
-data.tl.leiden(neighbors_res_key='neighbors',res_key='leiden')
+data1.tl.leiden(neighbors_res_key='neighbors',res_key='leiden')
+
+# ## check if the cell types are seperate"
+# data.plt.umap(res_key='umap', cluster_key='leiden')
 
 
-
-
-
-
-
-
-
-
-
-
-# ## cluster-level annotations
-# data.plt.cluster_scatter(res_key='anno_cluster_leiden')
-
-# ## check if the same cell types are close, e.g., "Ex.1" is close to "Ex.3"
-# data.plt.umap(res_key='umap', cluster_key='anno_cluster_leiden')
 
 
 
