@@ -4,7 +4,7 @@
 
 3. Annotate clusters using annotation dictionary.
 
-4. Extract the clusters annotated as "microglia" from all cells and cluster the annotated "microgia" again
+4. Extract the clusters annotated as "microglia" from all cells and cluster the annotated "microglia" again
 
 5. Annotate the new clusters again.
 
