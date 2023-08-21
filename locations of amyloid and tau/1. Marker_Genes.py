@@ -17,14 +17,14 @@ data = st.io.read_gef(file_path=data_path, bin_type='cell_bins')
 ## Filtering
 data.tl.filter_cells(
         # minimum number of counts required for a cell to pass fitlering.
-        min_gene=200, 
+        min_gene=20, 
         # minimum number of genes expressed required for a cell to pass filtering.
-        min_n_genes_by_counts=3,
+        min_n_genes_by_counts=200,
         # maximum number of genes expressed required for a cell to pass filtering.
-        max_n_genes_by_counts=2500, 
+        max_n_genes_by_counts=4000, 
         # Remove cells that have too many mitochondrial genes expressed, without enough genes expressed, and out of count range.
         # maximum number of pct_counts_mt required for a cell to pass filtering.
-        pct_counts_mt=5,
+        pct_counts_mt=10,
         # whether to inplace the previous data or return a new data.
         inplace=True
         )
