@@ -76,7 +76,7 @@ data.tl.leiden(neighbors_res_key='neighbors',res_key='leiden', resolution=17)
 data.tl.find_marker_genes(
         cluster_res_key='leiden',
         method='t_test',
-        use_highly_genes=False,
+        use_highly_genes=True,
         use_raw=True,
         output="/work/aliu10/AD_Stereoseq_Project/processed_data/{}/Gene_markers.csv".format(sample)
         )
