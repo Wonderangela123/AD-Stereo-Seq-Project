@@ -25,7 +25,7 @@ data.tl.annotation(
 # data.plt.umap(res_key='umap', cluster_key='anno_cluster_leiden')
 
 # Subset the cells annotated as "microglia"
-id = data.tl.result['anno_cluster_leiden']['group'].str.contains('Mic')
+id = data.tl.result['anno_cluster_leiden']['group'].str.contains('Ex|In')
 id = id[id].index.tolist()
 
 # read annData object
@@ -69,7 +69,7 @@ data1.tl.umap(
 data1.tl.leiden(neighbors_res_key='neighbors',res_key='leiden')
 
 # ## check if the cell types are seperate"
-# data.plt.umap(res_key='umap', cluster_key='leiden')
+data1.plt.umap(res_key='umap', cluster_key='leiden')
 
 
 
