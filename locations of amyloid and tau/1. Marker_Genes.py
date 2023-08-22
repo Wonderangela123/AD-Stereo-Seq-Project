@@ -69,7 +69,7 @@ data.tl.umap(
 
 
 # Clustering (Leiden)
-data.tl.leiden(neighbors_res_key='neighbors',res_key='leiden', resolution=17)
+data.tl.leiden(neighbors_res_key='neighbors',res_key='leiden')
 
 
 # Find Marker Genes
