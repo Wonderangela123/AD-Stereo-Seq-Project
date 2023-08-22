@@ -39,4 +39,25 @@ data1.bin_type = "cell_bins"
 data1.cells.cell_name = data1.cells.cell_name[id]
 data1.exp_matrix = data1.exp_matrix[id]
 
+# Find Marker Genes
+data1.tl.find_marker_genes(
+         cluster_res_key='leiden',
+         method='t_test',
+         use_highly_genes=True,
+         use_raw=True,
+         output="/work/aliu10/AD_Stereoseq_Project/processed_data/{}/Gene_markers_extract.csv".format(sample)
+         )
+
+## save StereoExpObject as AnnData in h5ad file
+st.io.stereo_to_anndata(data1,
+                        flavor='seurat',
+                        output='/work/aliu10/AD_Stereoseq_Project/processed_data/{}/{}_extract.anndata.h5ad'.format(sample, sample))
+
+
+## write a new h5ad with StereoExpData, if key_record = None, it will use the res_key stored in data.tl.key_record
+st.io.write_h5ad(data1,
+                 use_raw=True,
+                 use_result=True,
+                 key_record=None,
+                 output='/work/aliu10/AD_Stereoseq_Project/processed_data/{}/{}_extract.stereo.h5ad'.format(sample, sample))
 
