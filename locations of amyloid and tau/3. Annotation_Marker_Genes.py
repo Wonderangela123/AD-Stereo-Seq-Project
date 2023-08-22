@@ -69,7 +69,7 @@ data1.tl.umap(
 data1.tl.leiden(neighbors_res_key='neighbors',res_key='leiden')
 
 # ## check if the cell types are seperate"
-data1.plt.umap(res_key='umap', cluster_key='leiden')
+# data1.plt.umap(res_key='umap', cluster_key='leiden')
 
 # Find Marker Genes
 data1.tl.find_marker_genes(
