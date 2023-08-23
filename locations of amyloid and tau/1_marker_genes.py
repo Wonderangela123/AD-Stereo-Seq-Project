@@ -72,23 +72,23 @@ data.tl.umap(
 data.tl.leiden(neighbors_res_key='neighbors',res_key='leiden')
 
 
-# Find Marker Genes
-data.tl.find_marker_genes(
-        cluster_res_key='leiden',
-        method='t_test',
-        use_highly_genes=True,
-        use_raw=True,
-        output="/work/aliu10/AD_Stereoseq_Project/processed_data/{}/Gene_markers.csv".format(sample)
-        )
-### filter out genes based on log fold change and fraction of genes expressing the gene within and outside each group (optional)
-data.tl.filter_marker_genes(
-    marker_genes_res_key='marker_genes',
-    min_fold_change=1,
-    min_in_group_fraction=0.25,
-    max_out_group_fraction=0.5,
-    res_key='marker_genes_filtered',
-    output="/work/aliu10/AD_Stereoseq_Project/processed_data/{}/Gene_markers.csv".format(sample)
-)
+# # Find Marker Genes
+# data.tl.find_marker_genes(
+#         cluster_res_key='leiden',
+#         method='t_test',
+#         use_highly_genes=True,
+#         use_raw=True,
+#         output="/work/aliu10/AD_Stereoseq_Project/processed_data/{}/Gene_markers.csv".format(sample)
+#         )
+# ### filter out genes based on log fold change and fraction of genes expressing the gene within and outside each group (optional)
+# data.tl.filter_marker_genes(
+#     marker_genes_res_key='marker_genes',
+#     min_fold_change=1,
+#     min_in_group_fraction=0.25,
+#     max_out_group_fraction=0.5,
+#     res_key='marker_genes_filtered',
+#     output="/work/aliu10/AD_Stereoseq_Project/processed_data/{}/Gene_markers.csv".format(sample)
+# )
 
 ## save StereoExpObject as AnnData in h5ad file
 st.io.stereo_to_anndata(data,
