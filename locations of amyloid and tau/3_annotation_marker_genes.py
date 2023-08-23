@@ -24,7 +24,7 @@ data.tl.annotation(
 # ## check if the same cell types are close, e.g., "Mic.7" is close to "Mic.16"
 # data.plt.umap(res_key='umap', cluster_key='anno_cluster_leiden')
 
-# Subset the cells annotated as "microglia"
+# Subset the cells annotated as "neuron"
 id = data.tl.result['anno_cluster_leiden']['group'].str.contains('Ex|In')
 id = id[id].index.tolist()
 
@@ -71,27 +71,19 @@ data1.tl.leiden(neighbors_res_key='neighbors',res_key='leiden')
 # ## check if the cell types are seperate"
 # data1.plt.umap(res_key='umap', cluster_key='leiden')
 
-# Find Marker Genes
-data1.tl.find_marker_genes(
-         cluster_res_key='leiden',
-         method='t_test',
-         use_highly_genes=True,
-         use_raw=True,
-         output="/work/aliu10/AD_Stereoseq_Project/processed_data/{}/Gene_markers_recluster.csv".format(sample)
-         )
+# # Find Marker Genes
+# data1.tl.find_marker_genes(
+#          cluster_res_key='leiden',
+#          method='t_test',
+#          use_highly_genes=True,
+#          use_raw=True,
+#          output="/work/aliu10/AD_Stereoseq_Project/processed_data/{}/Gene_markers_recluster.csv".format(sample)
+#          )
 
 ## save StereoExpObject as AnnData in h5ad file
 st.io.stereo_to_anndata(data1,
                         flavor='seurat',
                         output='/work/aliu10/AD_Stereoseq_Project/processed_data/{}/{}_recluster.anndata.h5ad'.format(sample, sample))
-
-
-## write a new h5ad with StereoExpData, if key_record = None, it will use the res_key stored in data.tl.key_record
-st.io.write_h5ad(data1,
-                 use_raw=True,
-                 use_result=True,
-                 key_record=None,
-                 output='/work/aliu10/AD_Stereoseq_Project/processed_data/{}/{}_recluster.stereo.h5ad'.format(sample, sample))
 
 
 
