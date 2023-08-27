@@ -72,5 +72,6 @@ combined <- FindNeighbors(combined, reduction = "pca", dims = 1:30)
 combined <- FindClusters(combined, resolution = 0.5)
 
 # save as anndata
+setwd("/work/aliu10/AD_Stereoseq_Project/reference/")
 SaveH5Seurat(combined, filename = "clusters.h5Seurat", overwrite = TRUE)
 Convert("clusters.h5Seurat", dest = "h5ad", overwrite = TRUE)
