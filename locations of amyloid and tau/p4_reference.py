@@ -43,7 +43,7 @@ data.tl.umap(
 data.tl.leiden(neighbors_res_key='neighbors',res_key='leiden')
 
 # read text file into pandas DataFrame
-anno_dict_cluster = pd.read_csv("/work/aliu10/AD_Stereoseq_Project/reference/annotation_dict_cluster_cluster.txt", sep=" ")
+anno_dict_cluster = pd.read_csv("/work/aliu10/AD_Stereoseq_Project/reference/annotation_dict_cluster.txt", sep=" ")
 
 # convert annotation dictionary into list
 annotation_dict_cluster = anno_dict_cluster.dict.tolist()
