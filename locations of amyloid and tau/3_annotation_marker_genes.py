@@ -50,7 +50,7 @@ data1.tl.highly_variable_genes(
             res_key='highly_variable_genes'
             )
 
-data1.tl.scale() 
+# data1.tl.scale() # will produce NaN
 
 data1.tl.pca(
         use_highly_genes=True,
@@ -84,6 +84,13 @@ data1.tl.leiden(neighbors_res_key='neighbors',res_key='leiden')
 st.io.stereo_to_anndata(data1,
                         flavor='seurat',
                         output='/work/aliu10/AD_Stereoseq_Project/processed_data/{}/{}_recluster.anndata.h5ad'.format(sample, sample))
+
+# write a new h5ad with StereoExpData, if key_record = None, it will use the res_key stored in data.tl.key_record
+st.io.write_h5ad(data1,
+                 use_raw=True,
+                 use_result=True,
+                 key_record=None,
+                 output='/work/aliu10/AD_Stereoseq_Project/processed_data/{}/{}_recluster.stereo.h5ad'.format(sample, sample))
 
 
 
