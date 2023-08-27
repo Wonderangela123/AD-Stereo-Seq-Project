@@ -48,7 +48,7 @@ data1.tl.highly_variable_genes(
             res_key='highly_variable_genes'
             )
 
-data1.tl.scale() 
+# data1.tl.scale() # will produce NaN
 
 data1.tl.pca(
         use_highly_genes=True,
