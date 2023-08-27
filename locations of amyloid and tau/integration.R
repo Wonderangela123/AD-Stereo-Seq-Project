@@ -16,7 +16,7 @@ for (sample in cases_list){
     print(sample)
     data = Read10X_h5(file = paste0("/work/aliu10/AD_Stereoseq_Project/reference/", sample))
     object = CreateSeuratObject(data, project = "SeuratProject", assay = "RNA")
-    object$diagnosis = "cases"
+    object$diagnosis = "case"
     my_list_cases[[length(my_list_cases) + 1]] <- object
 }
 
