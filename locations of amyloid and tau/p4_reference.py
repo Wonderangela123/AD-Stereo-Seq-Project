@@ -1,4 +1,5 @@
 import stereo as st
+import pandas as pd
 
 data = st.io.read_ann_h5ad(
        file_path='/work/aliu10/AD_Stereoseq_Project/reference/integrated.h5ad',
