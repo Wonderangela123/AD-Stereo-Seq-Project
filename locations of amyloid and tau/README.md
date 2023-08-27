@@ -8,4 +8,4 @@
 
 5. Annotate the new clusters again.
 
-6. Use the subtype "microglia" to match the gene expression patterns(top 10) with known public data.
+6. Use the subtype "microglia" to match the gene expression patterns with known public data (integration -> clustering -> annotation).
