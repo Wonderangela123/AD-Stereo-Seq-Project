@@ -1,7 +1,7 @@
 import stereo as st
 
 data = st.io.read_ann_h5ad(
-       file_path='/work/aliu10/AD_Stereoseq_Project/processed_data/B01809C2/B01809C2_extract.anndata.h5ad',
+       file_path='/work/aliu10/AD_Stereoseq_Project/processed_data/B01809C2/B01809C2_recluster.anndata.h5ad',
        spatial_key=None,
        )
 
@@ -45,4 +45,4 @@ data.tl.leiden(neighbors_res_key='neighbors',res_key='leiden')
 ## save StereoExpObject as AnnData in h5ad file
 st.io.stereo_to_anndata(data,
                         flavor='seurat',
-                        output='/work/aliu10/AD_Stereoseq_Project/processed_data/B01809C2/B01809C2_extract_clusters.anndata.h5ad')
+                        output='/work/aliu10/AD_Stereoseq_Project/processed_data/B01809C2/B01809C2_recluster_clusters.anndata.h5ad')
