@@ -18,31 +18,10 @@ anchors <- FindIntegrationAnchors(object.list = my_list, anchor.features = featu
 # this command creates an 'integrated' data assay
 combined <- IntegrateData(anchorset = anchors)
 
-########################
-Scaling features for provided objects
+combined <- ScaleData(combined, verbose = FALSE)
+combined <- RunPCA(combined, npcs = 30, verbose = FALSE)
+combined <- RunUMAP(combined, reduction = "pca", dims = 1:30)
 
-Finding all pairwise anchors
-
-Running CCA
-
-Merging objects
-
-Finding neighborhoods
-
-Finding anchors
-
-	Found 32521 anchors
-
-Filtering anchors
-
-	Retained 731 anchors
-
-Merging dataset 1 into 2
-
-Extracting anchors for merged samples
-
-Finding integration vectors
-
-Finding integration vector weights
-
-Integrating data
+p1 <- DimPlot(combined, reduction = "umap", group.by = "BA10")
+p2 <- DimPlot(combined, reduction = "umap", label = TRUE, repel = TRUE)
+p1 + p2
