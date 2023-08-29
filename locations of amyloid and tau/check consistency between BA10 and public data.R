@@ -3,10 +3,12 @@ library(SeuratDisk)
 
 setwd("/work/aliu10/AD_Stereoseq_Project/reference")
 data_pub <- LoadH5Seurat("integrated.h5Seurat")
+data_pub$region = "BA9"
 
 setwd("/work/aliu10/AD_Stereoseq_Project/processed_data/B01809C2/")
 Convert("B01809C2_extract.anndata.h5ad", dest = "h5seurat", overwrite = TRUE)
 data = LoadH5Seurat("B01809C2_extract.anndata.h5seurat")
+data$region = "BA10"
 
 # identify variable features for each dataset independently
 my_list = list(data, data_pub)
