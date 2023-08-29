@@ -83,7 +83,7 @@ data1.tl.leiden(neighbors_res_key='neighbors',res_key='leiden')
 ## save StereoExpObject as AnnData in h5ad file
 st.io.stereo_to_anndata(data1,
                         flavor='seurat',
-                        output='/work/aliu10/AD_Stereoseq_Project/processed_data/{}/{}_recluster.anndata.h5ad'.format(sample, sample))
+                        output='/work/aliu10/AD_Stereoseq_Project/processed_data/{}/{}_subtype.anndata.h5ad'.format(sample, sample))
 
 
 
