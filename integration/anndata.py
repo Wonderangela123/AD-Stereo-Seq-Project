@@ -9,6 +9,7 @@ for sample in samples_list:
     st.io.read_gef_info(data_path)
     data = st.io.read_gef(file_path=data_path, bin_type='cell_bins')
     data.tl.raw_checkpoint()
+    # convert into anndata
     st.io.stereo_to_anndata(data,
                             flavor='seurat',
-                            output='/work/aliu10/AD_Stereoseq_Project/processed/{}/GeneExpMatrix/{}.anndata.h5ad'.format(sample, sample))
+                            output='/work/aliu10/AD_Stereoseq_Project/processed/{}/GeneExpMatrix/{}.h5ad'.format(sample, sample))
