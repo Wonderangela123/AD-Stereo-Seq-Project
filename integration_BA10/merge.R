@@ -2,8 +2,8 @@ library(Seurat)
 library(SeuratDisk)
 
 setwd("/work/aliu10/AD_Stereoseq_Project/processed/")
-samples_list = c("A02092E1", "B01809C2", "B02008C6", "B02008D2", "B02009F6", "C02248B5",
-                 "D02175A4", "D02175A6", "B01809A3", "B01809A4", "B01806B5", "B01806B6")
+samples_list = c("A02092E1", "B01809C2", "B02008C6", "B02008D2", "B02009F6", "C02248B5",  # cases
+                 "D02175A4", "D02175A6", "B01809A3", "B01809A4", "B01806B5", "B01806B6")  # controls
 
 # merge cases
 cases_list = list()
