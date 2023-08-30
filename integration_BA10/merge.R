@@ -32,3 +32,26 @@ merged_controls = Reduce(merge, controls_list)
 
 SaveH5Seurat(merged_controls, filename = "controls.h5Seurat", overwrite = TRUE)
 Convert("controls.h5Seurat", dest = "h5ad", overwrite = TRUE)
+
+# normalize and identify variable features for each dataset independently
+my_list = list(merged_cases, merged_controls)
+my_list <- lapply(X = my_list, FUN = function(x) {
+    x <- NormalizeData(x)
+    x <- FindVariableFeatures(x, selection.method = "vst", nfeatures = 2000)
+})
+
+# select features that are repeatedly variable across datasets for integration run PCA on each
+# dataset using these features
+features <- SelectIntegrationFeatures(object.list = my_list)
+my_list <- lapply(X = my_list, FUN = function(x) {
+    x <- ScaleData(x, features = features, verbose = FALSE)
+    x <- RunPCA(x, features = features, verbose = FALSE)
+})
+
+anchors <- FindIntegrationAnchors(object.list = my_list, anchor.features = features, reduction = "rpca")
+# this command creates an 'integrated' data assay
+combined <- IntegrateData(anchorset = anchors)
+DefaultAssay(combined) <- "integrated"
+
+SaveH5Seurat(combined, filename = "integrated.h5Seurat", overwrite = TRUE)
+Convert("integrated.h5Seurat", dest = "h5ad", overwrite = TRUE)
