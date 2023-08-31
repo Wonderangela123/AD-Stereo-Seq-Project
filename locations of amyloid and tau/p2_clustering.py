@@ -40,7 +40,7 @@ data.tl.umap(
 
 
 # Clustering (Leiden) resolution=XXX ("Neuron" paper annotated 17 clusters)
-data.tl.leiden(neighbors_res_key='neighbors',res_key='leiden')
+data.tl.leiden(neighbors_res_key='neighbors',res_key='leiden', resolution=0.2)
 
 ## save StereoExpObject as AnnData in h5ad file
 st.io.stereo_to_anndata(data,
