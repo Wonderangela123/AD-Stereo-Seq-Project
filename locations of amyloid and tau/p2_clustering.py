@@ -7,6 +7,8 @@ data = st.io.read_ann_h5ad(
 
 data.tl.raw_checkpoint() # In order to save the data and recall it conveniently, you can save the raw expression matrix.
 
+data.tl.quantile()
+
 # Highly variable genes
 # Identify highly variable genes in cells.(In the subsequent "data.tl.pca" method, the parameter use_highly_genes can be set as True/False.)
 data.tl.highly_variable_genes(
