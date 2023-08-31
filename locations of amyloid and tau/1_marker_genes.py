@@ -1,11 +1,16 @@
 # Read the Stereo-seq data
 import stereo as st
 
-sample = "B01809C2" ## AD case
-data_path = "/work/ygong/stereo_seq_public/{}/GeneExpMatrix/{}.cellbin.gef".format(sample, sample)
-st.io.read_gef_info(data_path)
-data = st.io.read_gef(file_path=data_path, bin_type='cell_bins')
+# sample = "B01809C2" ## AD case
+# data_path = "/work/ygong/stereo_seq_public/{}/GeneExpMatrix/{}.cellbin.gef".format(sample, sample)
+# st.io.read_gef_info(data_path)
+# data = st.io.read_gef(file_path=data_path, bin_type='cell_bins')
 
+data = st.io.read_ann_h5ad(
+       file_path='/work/aliu10/AD_Stereoseq_Project/processed/cases.h5ad',
+       spatial_key=None,
+       )
+data.bin_type = "cell_bins"
 
 # Data preprocessing includes three modules: quality control, filtering and normalization.
 
