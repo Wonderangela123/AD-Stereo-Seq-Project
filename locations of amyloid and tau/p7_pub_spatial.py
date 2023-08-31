@@ -17,7 +17,7 @@ data.tl.highly_variable_genes(
             res_key='highly_variable_genes'
             )
 
-data.tl.scale() # Scale each gene to unit variance. Clip values exceeding standard deviation 10. 
+# data.tl.scale() # Scale each gene to unit variance. Clip values exceeding standard deviation 10. 
 
 
 # Embedding
