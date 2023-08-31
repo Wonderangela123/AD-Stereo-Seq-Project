@@ -5,10 +5,21 @@ library(zellkonverter)
 test = readH5AD(file = '/work/aliu10/AD_Stereoseq_Project/processed_data/B01809C2/B01809C2_subtype.anndata.h5ad')
 ref = readH5AD(file = '/work/aliu10/AD_Stereoseq_Project/reference/reference.h5ad')
 
+ref$anno_cluster_leiden <- as.character(ref$anno_cluster_leiden)
+ref$anno_cluster_leiden[grepl("Ex", ref$anno_cluster_leiden)] <- "Ex"
+ref$anno_cluster_leiden[grepl("In", ref$anno_cluster_leiden)] <- "In"
+ref$anno_cluster_leiden[grepl("Opc", ref$anno_cluster_leiden)] <- "Opc"
+ref$anno_cluster_leiden[grepl("Mic", ref$anno_cluster_leiden)] <- "Mic"
+ref$anno_cluster_leiden[grepl("Ast", ref$anno_cluster_leiden)] <- "Ast"
+ref$anno_cluster_leiden[grepl("End", ref$anno_cluster_leiden)] <- "End"
+ref$anno_cluster_leiden[grepl("Per", ref$anno_cluster_leiden)] <- "Per"
+ref$anno_cluster_leiden[grepl("Oli", ref$anno_cluster_leiden)] <- "Oli"
+ref$anno_cluster_leiden <- as.factor(ref$anno_cluster_leiden)
+
 # Obtain annotation dictionary
 # labels: cell types; assay.type.test/ref: An integer scalar or string specifying the assay of test/ref containing the relevant expression matrix.
-anno_dict_cluster = SingleR(test, ref, clusters=test$leiden, labels=ref$broad.cell.type, assay.type.test=1, assay.type.ref=1) ## cluster-level annotation
-anno_dict_cell = SingleR(test, ref, labels=ref$broad.cell.type, assay.type.test=1, assay.type.ref=1) ## cell-level annotation
+anno_dict_cluster = SingleR(test, ref, clusters=test$leiden, labels=ref$anno_cluster_leiden, assay.type.test=1, assay.type.ref=1) ## cluster-level annotation
+anno_dict_cell = SingleR(test, ref, labels=ref$anno_cluster_leiden, assay.type.test=1, assay.type.ref=1) ## cell-level annotation
 
 # The function "data.tl.annotation" requires "Categorical categories must be unique", hence, create a variable to paste cluster and labels together.
 # cluster annotation
