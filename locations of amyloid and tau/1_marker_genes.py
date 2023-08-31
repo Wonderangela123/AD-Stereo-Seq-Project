@@ -95,10 +95,23 @@ data.tl.leiden(neighbors_res_key='neighbors',res_key='leiden')
 #     output="/work/aliu10/AD_Stereoseq_Project/processed_data/{}/Gene_markers.csv".format(sample)
 # )
 
+# ## save StereoExpObject as AnnData in h5ad file
+# st.io.stereo_to_anndata(data,
+#                         flavor='seurat',
+#                         output='/work/aliu10/AD_Stereoseq_Project/processed_data/{}/{}.anndata.h5ad'.format(sample, sample))
+
+
+# ## write a new h5ad with StereoExpData, if key_record = None, it will use the res_key stored in data.tl.key_record
+# st.io.write_h5ad(data,
+#                  use_raw=True,
+#                  use_result=True,
+#                  key_record=None,
+#                  output='/work/aliu10/AD_Stereoseq_Project/processed_data/{}/{}.stereo.h5ad'.format(sample, sample))
+
 ## save StereoExpObject as AnnData in h5ad file
 st.io.stereo_to_anndata(data,
                         flavor='seurat',
-                        output='/work/aliu10/AD_Stereoseq_Project/processed_data/{}/{}.anndata.h5ad'.format(sample, sample))
+                        output='/work/aliu10/AD_Stereoseq_Project/processed/cases.anndata.h5ad')
 
 
 ## write a new h5ad with StereoExpData, if key_record = None, it will use the res_key stored in data.tl.key_record
@@ -106,6 +119,6 @@ st.io.write_h5ad(data,
                  use_raw=True,
                  use_result=True,
                  key_record=None,
-                 output='/work/aliu10/AD_Stereoseq_Project/processed_data/{}/{}.stereo.h5ad'.format(sample, sample))
+                 output='/work/aliu10/AD_Stereoseq_Project/processed/cases.stereo.h5ad')
 
 
