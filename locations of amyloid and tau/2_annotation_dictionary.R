@@ -2,7 +2,8 @@ library(SingleR)
 library(zellkonverter) 
 
 ## read h5ad files into SingleCellExperiment objects
-test = readH5AD(file = '/work/aliu10/AD_Stereoseq_Project/processed_data/B01809C2/B01809C2.anndata.h5ad')
+# test = readH5AD(file = '/work/aliu10/AD_Stereoseq_Project/processed_data/B01809C2/B01809C2.anndata.h5ad')
+test = readH5AD(file = '/work/aliu10/AD_Stereoseq_Project/processed/cases.anndata.h5ad')
 ref = readH5AD(file = '/work/ygong/stereo_seq_public/MIT_AD.h5ad')
 
 ## Obtain annotation dictionary
