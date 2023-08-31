@@ -1,7 +1,7 @@
 import stereo as st
 
 data = st.io.read_ann_h5ad(
-       file_path='/work/aliu10/AD_Stereoseq_Project/processed_data/B01809C2/B01809C2_extract.anndata.h5ad',
+       file_path='/work/aliu10/AD_Stereoseq_Project/processed_data/B01809C2/B01809C2_subtype.anndata.h5ad',
        spatial_key=None,
        )
 
