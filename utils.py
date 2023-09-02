@@ -6,6 +6,18 @@ import czifile
 import matplotlib.pyplot as plt
 from tifffile import imsave
 import statistics
+import pyarrow.feather as feather
+import datashader as ds
+from datashader import transfer_functions as tf
+import numpy as np
+import utils
+from PIL import Image
+from IPython.core.interactiveshell import InteractiveShell
+InteractiveShell.ast_node_interactivity = "all"
+import holoviews as hv
+import datashader as ds
+from holoviews.operation.datashader import datashade, shade, dynspread, rasterize
+import czifile
 
 # plot the gene expression on the figure
 def feature_plot(stereo_data, genes, fig_size=(20,20), spot_size = 20): # fig size is the hieght and width of the figure, spot size is the size for the spot.
@@ -106,9 +118,70 @@ def find_barcode_expression(stereo_data, filtered_positions):# extrac the gene e
     
     return expression_matrix.iloc[flat_list,:]
 
+def pseudo_image(data):
+    exp_matrix = data.array2sparse()
+    row_sums = exp_matrix.sum(axis=1)
+    location_info = data.position
+    row_sums = np.array(row_sums)
+    df = pd.DataFrame({
+        'x': location_info[:, 0],
+        'y': location_info[:, 1],
+        'signal_strength': row_sums[:, 0].flatten()
+    })
+    
+    # verticle flip
+    height = df['y'].max()
+    df['y'] = -df['y'] + height
 
+    # Create points using HoloViews
+    points = hv.Points(df, kdims=['x', 'y'], vdims=['signal_strength'])
 
+    # Apply datashading operation and dynamic map
+    result = dynspread(
+        datashade(
+            points, 
+            element_type=hv.Image, 
+            aggregator=ds.mean('signal_strength'), 
+            cmap=["black", "green"])).opts(width=800, height=800, bgcolor="black")
+    return result
 
+def nuclei_image_import(data_path):
+    
+    # Load CZI into a numpy array
+    img = czifile.imread(data_path)
+    image_2d = img[0, 0, :, :, 0]
+
+    # Assuming `image_2d` is your image array with shape (18576, 18684)
+    # Create indices for x and y locations
+    y_indices, x_indices = np.indices(image_2d.shape)
+
+    # Flatten the arrays
+    x_flat = x_indices.flatten()
+    y_flat = y_indices.flatten()
+    image_flat = image_2d.flatten()
+
+    # Create DataFrame
+    df = pd.DataFrame({
+        'x': x_flat,
+        'y': y_flat,
+        'signal_strength': image_flat
+    })
+    # Create points using HoloViews
+    points = hv.Points(df, kdims=['x', 'y'], vdims=['signal_strength'])
+    
+    # Negate x and y values and then shift them by the dimensions of the image
+    df['x'] = -df['x'] + image_2d.shape[1]
+    df['y'] = -df['y'] + image_2d.shape[0]
+
+    
+    # Apply datashading operation and dynamic map
+    result = dynspread(
+                datashade(
+                    points, 
+                    element_type=hv.Image, 
+                    aggregator=ds.mean('signal_strength'), 
+                    cmap=["black", "red"])).opts(width=800, height=800, bgcolor="black")
+    return result
 
 
 
