@@ -5,6 +5,11 @@ library(zellkonverter)
 test = readH5AD(file = '/work/aliu10/AD_Stereoseq_Project/reference/clusters.anndata.h5ad')
 ref = readH5AD(file = '/work/ygong/stereo_seq_public/MIT_AD.h5ad')
 
+# Convert unwanted levels to NA
+ref$broad.cell.type[ref$broad.cell.type %in% c("Mic", "Per", "End")] <- NA
+# Drop unused levels
+ref$broad.cell.type <- droplevels(as.factor(ref$broad.cell.type))
+
 # Obtain annotation dictionary
 # labels: cell types; assay.type.test/ref: An integer scalar or string specifying the assay of test/ref containing the relevant expression matrix.
 anno_dict_cluster = SingleR(test, ref, clusters=test$leiden, labels=ref$broad.cell.type, assay.type.test=1, assay.type.ref=1) ## cluster-level annotation
@@ -17,8 +22,8 @@ anno_dict_cluster$dict = paste(anno_dict_cluster$labels, anno_dict_cluster$clust
 
 write.table(anno_dict_cluster, file = '/work/aliu10/AD_Stereoseq_Project/reference/annotation_dict_cluster.txt')
 
-# cell annotation
-anno_dict_cell$cell = row.names(anno_dict_cell)
-anno_dict_cell$dict = paste(anno_dict_cell$labels, anno_dict_cell$cell, sep = ".")
+# # cell annotation
+# anno_dict_cell$cell = row.names(anno_dict_cell)
+# anno_dict_cell$dict = paste(anno_dict_cell$labels, anno_dict_cell$cell, sep = ".")
 
-write.table(anno_dict_cell, file = '/work/aliu10/AD_Stereoseq_Project/reference/annotation_dict_cell.txt')
+# write.table(anno_dict_cell, file = '/work/aliu10/AD_Stereoseq_Project/reference/annotation_dict_cell.txt')
