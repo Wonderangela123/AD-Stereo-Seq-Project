@@ -1,16 +1,11 @@
 # Read the Stereo-seq data
 import stereo as st
 
-# sample = "B01809C2" ## AD case
-# data_path = "/work/ygong/stereo_seq_public/{}/GeneExpMatrix/{}.cellbin.gef".format(sample, sample)
-# st.io.read_gef_info(data_path)
-# data = st.io.read_gef(file_path=data_path, bin_type='cell_bins')
-
 data = st.io.read_ann_h5ad(
-       file_path='/work/aliu10/AD_Stereoseq_Project/processed/cases.h5ad',
+       file_path='/work/aliu10/AD_Stereoseq_Project/processed/data/integrated.h5ad',
        spatial_key=None,
-       )
-data.bin_type = "cell_bins"
+       bin_type = "cell_bins"
+)
 
 # Data preprocessing includes three modules: quality control, filtering and normalization.
 
@@ -37,9 +32,7 @@ data.tl.filter_cells(
 data.tl.raw_checkpoint() # In order to save the data and recall it conveniently, you can save the raw expression matrix.
 
 ## Normalization (a combination method of normalize_total and log1p to normalize gene expression matrix)
-data.tl.normalize_total()
-data.tl.log1p()
-
+data.tl.quantile()
 
 # Highly variable genes
 # Identify highly variable genes in cells.(In the subsequent "data.tl.pca" method, the parameter use_highly_genes can be set as True/False.)
@@ -77,48 +70,7 @@ data.tl.umap(
 data.tl.leiden(neighbors_res_key='neighbors',res_key='leiden', resolution=0.1)
 
 
-# # Find Marker Genes
-# data.tl.find_marker_genes(
-#         cluster_res_key='leiden',
-#         method='t_test',
-#         use_highly_genes=True,
-#         use_raw=True,
-#         output="/work/aliu10/AD_Stereoseq_Project/processed_data/{}/Gene_markers.csv".format(sample)
-#         )
-# ### filter out genes based on log fold change and fraction of genes expressing the gene within and outside each group (optional)
-# data.tl.filter_marker_genes(
-#     marker_genes_res_key='marker_genes',
-#     min_fold_change=1,
-#     min_in_group_fraction=0.25,
-#     max_out_group_fraction=0.5,
-#     res_key='marker_genes_filtered',
-#     output="/work/aliu10/AD_Stereoseq_Project/processed_data/{}/Gene_markers.csv".format(sample)
-# )
-
-# ## save StereoExpObject as AnnData in h5ad file
-# st.io.stereo_to_anndata(data,
-#                         flavor='seurat',
-#                         output='/work/aliu10/AD_Stereoseq_Project/processed_data/{}/{}.anndata.h5ad'.format(sample, sample))
-
-
-# ## write a new h5ad with StereoExpData, if key_record = None, it will use the res_key stored in data.tl.key_record
-# st.io.write_h5ad(data,
-#                  use_raw=True,
-#                  use_result=True,
-#                  key_record=None,
-#                  output='/work/aliu10/AD_Stereoseq_Project/processed_data/{}/{}.stereo.h5ad'.format(sample, sample))
-
 ## save StereoExpObject as AnnData in h5ad file
 st.io.stereo_to_anndata(data,
                         flavor='seurat',
-                        output='/work/aliu10/AD_Stereoseq_Project/processed/cases.anndata.h5ad')
-
-
-## write a new h5ad with StereoExpData, if key_record = None, it will use the res_key stored in data.tl.key_record
-st.io.write_h5ad(data,
-                 use_raw=True,
-                 use_result=True,
-                 key_record=None,
-                 output='/work/aliu10/AD_Stereoseq_Project/processed/cases.stereo.h5ad')
-
-
+                        output='/work/aliu10/AD_Stereoseq_Project/processed/data/integrated.anndata.h5ad')
