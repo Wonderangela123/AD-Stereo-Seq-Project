@@ -8,7 +8,7 @@ ref = readH5AD(file = '/work/ygong/stereo_seq_public/MIT_AD.h5ad')
 ## Obtain annotation dictionary
 ## labels: cell types; assay.type.test/ref: An integer scalar or string specifying the assay of test/ref containing the relevant expression matrix.
 anno_dict_cluster = SingleR(test, ref, clusters=test$leiden, labels=ref$broad.cell.type, assay.type.test=1, assay.type.ref=1) ## cluster-level annotation
-anno_dict_cell = SingleR(test, ref, labels=ref$broad.cell.type, assay.type.test=1, assay.type.ref=1) ## cell-level annotation
+# anno_dict_cell = SingleR(test, ref, labels=ref$broad.cell.type, assay.type.test=1, assay.type.ref=1) ## cell-level annotation
 
 
 ## The function "data.tl.annotation" requires "Categorical categories must be unique", hence, create a variable to paste cluster and labels together.
