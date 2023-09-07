@@ -9,10 +9,7 @@ ref$anno_cluster_leiden <- as.character(ref$anno_cluster_leiden)
 ref$anno_cluster_leiden[grepl("Ex", ref$anno_cluster_leiden)] <- "Ex"
 ref$anno_cluster_leiden[grepl("In", ref$anno_cluster_leiden)] <- "In"
 ref$anno_cluster_leiden[grepl("Opc", ref$anno_cluster_leiden)] <- "Opc"
-ref$anno_cluster_leiden[grepl("Mic", ref$anno_cluster_leiden)] <- "Mic"
 ref$anno_cluster_leiden[grepl("Ast", ref$anno_cluster_leiden)] <- "Ast"
-ref$anno_cluster_leiden[grepl("End", ref$anno_cluster_leiden)] <- "End"
-ref$anno_cluster_leiden[grepl("Per", ref$anno_cluster_leiden)] <- "Per"
 ref$anno_cluster_leiden[grepl("Oli", ref$anno_cluster_leiden)] <- "Oli"
 ref$anno_cluster_leiden <- as.factor(ref$anno_cluster_leiden)
 
