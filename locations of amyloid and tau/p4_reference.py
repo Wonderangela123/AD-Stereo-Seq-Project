@@ -6,6 +6,17 @@ data = st.io.read_ann_h5ad(
        spatial_key=None,
        )
 
+import scanpy as sc
+
+# Read the data with scanpy
+adata = sc.read_h5ad('/work/aliu10/AD_Stereoseq_Project/reference/integrated.h5ad')
+# Extract the diagnosis variable
+diagnosis = adata.obs['diagnosis']
+# Create a dictionary with cell names as keys and diagnosis as values
+diagnosis_dict = diagnosis.to_dict()
+# Assuming 'cell_name' in data corresponds to the keys in diagnosis_dict
+data.cells['diagnosis'] = [diagnosis_dict[cell] for cell in data.cells.cell_name]
+
 data.tl.raw_checkpoint() # In order to save the data and recall it conveniently, you can save the raw expression matrix.
 
 data.tl.quantile()
