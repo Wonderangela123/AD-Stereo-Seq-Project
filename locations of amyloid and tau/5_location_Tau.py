@@ -65,11 +65,8 @@ data1.tl.annotation(
 
 #######################################################
 # data will be covered, so we have to load data again.
-data = st.io.read_stereo_h5ad(
-        file_path='/work/aliu10/AD_Stereoseq_Project/processed/data/B01809C2/GeneExpMatrix/B01809C2.stereo.h5ad',
-        use_raw=True,
-        use_result=True,
-        )
+data = st.io.read_gef(file_path="/work/aliu10/AD_Stereoseq_Project/processed/data/B01809C2/GeneExpMatrix/B01809C2.cellbin.gef",
+                      bin_type='cell_bins')
 
 # Extract cell names of tau from data1
 tau = data1.cells.cell_name[data1.tl.result['anno_cluster_leiden']['group'].str.contains('cases')]
