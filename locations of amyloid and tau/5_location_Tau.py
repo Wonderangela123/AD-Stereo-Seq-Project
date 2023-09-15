@@ -48,9 +48,6 @@ data1.tl.umap(
 
 data1.tl.leiden(neighbors_res_key='neighbors',res_key='leiden', resolution=0.5)
 
-# After getting annotation dictionary
-import pandas as pd
-
 # read text file into pandas DataFrame
 anno_dict_cluster = pd.read_csv("/work/aliu10/AD_Stereoseq_Project/processed/data/B01809C2/GeneExpMatrix/B01809C2_annotation_dict_subtype.txt", sep=" ")
 
