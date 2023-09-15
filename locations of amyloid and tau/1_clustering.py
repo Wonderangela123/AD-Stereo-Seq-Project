@@ -1,30 +1,23 @@
 # Read the Stereo-seq data
 import stereo as st
 
-data = st.io.read_ann_h5ad(
-       file_path='/work/aliu10/AD_Stereoseq_Project/processed/data/integrated.h5ad',
-       spatial_key=None,
-       bin_type = "cell_bins"
-)
+data = st.io.read_gef(file_path="/work/aliu10/AD_Stereoseq_Project/processed/data/B01809C2/GeneExpMatrix/B01809C2.cellbin.gef",
+                      bin_type='cell_bins')
 
-# Data preprocessing includes three modules: quality control, filtering and normalization.
-
-## Quality control: This module calculates the quality distribution of original data, using three indicators: 
-## 1) total_counts - the total counts per cell
-## 2) n_genes_by_counts - the number of genes expressed in count maxtrix
-## 3) pct_counts_mt - the percentage of counts in mitochondrial genes
+# data.tl.cal_qc()
+# data.plt.violin()
 
 ## Filtering
 data.tl.filter_cells(
-        # minimum number of counts required for a cell to pass fitlering.
-        min_gene=20, 
-        # minimum number of genes expressed required for a cell to pass filtering.
-        min_n_genes_by_counts=200,
+        min_gene=100,
+        # maximum number of counts required for a cell to pass fitlering. 
+        max_gene=800,
+        min_n_genes_by_counts=100, 
         # maximum number of genes expressed required for a cell to pass filtering.
-        max_n_genes_by_counts=4000, 
+        max_n_genes_by_counts=600, 
         # Remove cells that have too many mitochondrial genes expressed, without enough genes expressed, and out of count range.
         # maximum number of pct_counts_mt required for a cell to pass filtering.
-        pct_counts_mt=10,
+        pct_counts_mt=5,
         # whether to inplace the previous data or return a new data.
         inplace=True
         )
@@ -32,7 +25,8 @@ data.tl.filter_cells(
 data.tl.raw_checkpoint() # In order to save the data and recall it conveniently, you can save the raw expression matrix.
 
 ## Normalization (a combination method of normalize_total and log1p to normalize gene expression matrix)
-data.tl.quantile()
+data.tl.normalize_total()
+data.tl.log1p()
 
 # Highly variable genes
 # Identify highly variable genes in cells.(In the subsequent "data.tl.pca" method, the parameter use_highly_genes can be set as True/False.)
@@ -67,10 +61,10 @@ data.tl.umap(
 
 
 # Clustering (Leiden)
-data.tl.leiden(neighbors_res_key='neighbors',res_key='leiden', resolution=0.1)
+data.tl.leiden(neighbors_res_key='neighbors',res_key='leiden', resolution=0.5)
 
-
-## save StereoExpObject as AnnData in h5ad file
+# data.plt.cluster_scatter(res_key='leiden')
+# save StereoExpObject as AnnData in h5ad file
 st.io.stereo_to_anndata(data,
                         flavor='seurat',
-                        output='/work/aliu10/AD_Stereoseq_Project/processed/data/integrated.anndata.h5ad')
+                        output='/work/aliu10/AD_Stereoseq_Project/processed/data/B01809C2/GeneExpMatrix/B01809C2.anndata.h5ad')
