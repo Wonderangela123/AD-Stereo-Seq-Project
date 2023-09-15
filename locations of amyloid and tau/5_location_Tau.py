@@ -60,7 +60,7 @@ data1.tl.annotation(
         res_key='anno_cluster_leiden' ## store annotation in "res_key" as a keyword
         )
 
-#######################################################
+###############################################################################################################################
 # data will be covered, so we have to load data again.
 data = st.io.read_gef(file_path="/work/aliu10/AD_Stereoseq_Project/processed/data/B01809C2/GeneExpMatrix/B01809C2.cellbin.gef",
                       bin_type='cell_bins')
