@@ -11,10 +11,10 @@ data = st.io.read_gef(file_path="/work/aliu10/AD_Stereoseq_Project/processed/dat
 data.tl.filter_cells(
         min_gene=100,
         # maximum number of counts required for a cell to pass fitlering. 
-        max_gene=800,
-        min_n_genes_by_counts=100, 
+        # max_gene=800,
+        min_n_genes_by_counts=10, 
         # maximum number of genes expressed required for a cell to pass filtering.
-        max_n_genes_by_counts=600, 
+        # max_n_genes_by_counts=600, 
         # Remove cells that have too many mitochondrial genes expressed, without enough genes expressed, and out of count range.
         # maximum number of pct_counts_mt required for a cell to pass filtering.
         pct_counts_mt=5,
