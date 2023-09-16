@@ -82,10 +82,10 @@ data.cells['tau'] = data.cells['tau'].astype('category')
 
 # plot the cells by 'tau' (red)
 fig, ax = plt.subplots(figsize=(10, 10))
-plt.scatter(data.position[:,0], data.position[:,1], c=data.cells['tau'], s=2)
+plt.scatter(data.position[:,0], data.position[:,1], c=data.cells['tau'], s=5)
 
-legend_elements = [Line2D([0], [0], marker='o', color='w', label='Tau', markersize=8, markerfacecolor='red'),
-                   Line2D([0], [0], marker='o', color='w', label='Others', markersize=8, markerfacecolor='grey')]
+legend_elements = [Line2D([0], [0], marker='o', color='w', label='Tau', markersize=10, markerfacecolor='red'),
+                   Line2D([0], [0], marker='o', color='w', label='Others', markersize=10, markerfacecolor='grey')]
 
 # Add the legend to the plot
 ax.legend(handles=legend_elements, fontsize=14)
