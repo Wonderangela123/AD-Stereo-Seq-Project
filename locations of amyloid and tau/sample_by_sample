@@ -4,7 +4,7 @@ sed 's/B01809A4/B01806B6/g' subtyping.py > ../../B01806B6/GeneExpMatrix/subtypin
 sed 's/B01809A4/B01806B6/g' ann_dict_subtype.R > ../../B01806B6/GeneExpMatrix/ann_dict_subtype.R
 sed 's/B01809A4/B01806B6/g' tau_location.py > ../../B01806B6/GeneExpMatrix/tau_location.py
 
-sed 's/B01809A4/B01806B6/g' location.pbs > ../../B01806B6/GeneExpMatrix/location.pbs
+sed 's/B01809A4/B01809C2/g' location.pbs > ../../B01809C2/GeneExpMatrix/location.pbs
 
 cd ../../B01806B6/GeneExpMatrix/
 chmod 770 clustering.py ann_dict.R subtyping.py ann_dict_subtype.R tau_location.py location.pbs
