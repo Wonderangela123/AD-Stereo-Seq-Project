@@ -62,6 +62,35 @@ data1.tl.annotation(
 
 ###############################################################################################################################
 # data will be covered, so we have to load data again.
+data = st.io.read_gef(file_path="/work/aliu10/AD_Stereoseq_Project/processed/data/B01809C2/GeneExpMatrix/B01809C2.cellbin.gef",
+                      bin_type='cell_bins')
+# Extract cell names of tau from data1
+tau = data1.cells.cell_name[data1.tl.result['anno_cluster_leiden']['group'].str.contains('cases')]
+
+# Convert the cell names from 'data' into a pandas series
+cell_names_series = pd.Series(data.cells.cell_name)
+
+# Identify which cells in 'data' match the cell names in 'tau'
+id_tau = cell_names_series.isin(tau)
+
+# If match then 'red' otherwise 'grey'
+data.cells['tau'] = ['red' if cell else 'gray' for cell in id_tau]
+data.cells['tau'] = data.cells['tau'].astype('category')
+
+# plot the cells by 'tau' (red)
+fig, ax = plt.subplots(figsize=(10, 10))
+plt.scatter(data.position[:,0], data.position[:,1], c=data.cells['tau'], s=2)
+
+legend_elements = [Line2D([0], [0], marker='o', color='w', label='Tau', markersize=8, markerfacecolor='red'),
+                   Line2D([0], [0], marker='o', color='w', label='Others', markersize=8, markerfacecolor='grey')]
+
+# Add the legend to the plot
+ax.legend(handles=legend_elements, fontsize=14)
+
+ax.invert_yaxis() # change the direction of y axis
+
+fig.savefig("/work/aliu10/AD_Stereoseq_Project/processed/data/B01809C2/GeneExpMatrix/B01809C2_raw.png")
+
 data = st.io.read_stereo_h5ad(file_path="/work/aliu10/AD_Stereoseq_Project/processed/data/B01809C2/GeneExpMatrix/B01809C2.stereo.h5ad",
                               use_raw=True,
                               use_result=True,
@@ -92,11 +121,12 @@ ax.legend(handles=legend_elements, fontsize=14)
 
 ax.invert_yaxis() # change the direction of y axis
 
-fig.savefig("/work/aliu10/AD_Stereoseq_Project/processed/data/B01809C2/GeneExpMatrix/B01809C2.png")
+fig.savefig("/work/aliu10/AD_Stereoseq_Project/processed/data/B01809C2/GeneExpMatrix/B01809C2_QC.png")
 
-with open('/work/aliu10/AD_Stereoseq_Project/processed/data/B01809C2/GeneExpMatrix/B01809C2_cell_statistics.txt', 'w') as file:
+with open('/work/aliu10/AD_Stereoseq_Project/processed/data/B01809C2/GeneExpMatrix/B01809C2_cell_statistics_QC.txt', 'w') as file:
     file.write(f"tau%: {len(tau)/len(data.cells.cell_name)}\n")
-    file.write(f"neuron%: {len(data.tl.result['anno_cluster_leiden']['group'].str.contains('Ex|In')[data.tl.result['anno_cluster_leiden']['group'].str.contains('Ex|In')].index.tolist())/len(data.cells.cell_name)}\n")
+    file.write(f"ex%: {len(data.tl.result['anno_cluster_leiden']['group'].str.contains('Ex')[data.tl.result['anno_cluster_leiden']['group'].str.contains('Ex')].index.tolist())/len(data.cells.cell_name)}\n")
+    file.write(f"in%: {len(data.tl.result['anno_cluster_leiden']['group'].str.contains('In')[data.tl.result['anno_cluster_leiden']['group'].str.contains('In')].index.tolist())/len(data.cells.cell_name)}\n")
     file.write(f"astrocyte%: {len(data.tl.result['anno_cluster_leiden']['group'].str.contains('Ast')[data.tl.result['anno_cluster_leiden']['group'].str.contains('Ast')].index.tolist())/len(data.cells.cell_name)}\n")
     file.write(f"end%: {len(data.tl.result['anno_cluster_leiden']['group'].str.contains('End')[data.tl.result['anno_cluster_leiden']['group'].str.contains('End')].index.tolist())/len(data.cells.cell_name)}\n")
     file.write(f"microglia%: {len(data.tl.result['anno_cluster_leiden']['group'].str.contains('Mic')[data.tl.result['anno_cluster_leiden']['group'].str.contains('Mic')].index.tolist())/len(data.cells.cell_name)}\n")
