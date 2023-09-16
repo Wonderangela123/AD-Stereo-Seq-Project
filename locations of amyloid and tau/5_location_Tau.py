@@ -93,3 +93,13 @@ ax.legend(handles=legend_elements, fontsize=14)
 ax.invert_yaxis() # change the direction of y axis
 
 fig.savefig("/work/aliu10/AD_Stereoseq_Project/processed/data/B01809C2/GeneExpMatrix/B01809C2.png")
+
+with open('/work/aliu10/AD_Stereoseq_Project/processed/data/B01809C2/GeneExpMatrix/B01809C2_cell_statistics.txt', 'w') as file:
+    file.write(f"tau%: {len(tau)/len(data.cells.cell_name)}\n")
+    file.write(f"neuron%: {len(data.tl.result['anno_cluster_leiden']['group'].str.contains('Ex|In')[data.tl.result['anno_cluster_leiden']['group'].str.contains('Ex|In')].index.tolist())/len(data.cells.cell_name)}\n")
+    file.write(f"astrocyte%: {len(data.tl.result['anno_cluster_leiden']['group'].str.contains('Ast')[data.tl.result['anno_cluster_leiden']['group'].str.contains('Ast')].index.tolist())/len(data.cells.cell_name)}\n")
+    file.write(f"end%: {len(data.tl.result['anno_cluster_leiden']['group'].str.contains('End')[data.tl.result['anno_cluster_leiden']['group'].str.contains('End')].index.tolist())/len(data.cells.cell_name)}\n")
+    file.write(f"microglia%: {len(data.tl.result['anno_cluster_leiden']['group'].str.contains('Mic')[data.tl.result['anno_cluster_leiden']['group'].str.contains('Mic')].index.tolist())/len(data.cells.cell_name)}\n")
+    file.write(f"opc%: {len(data.tl.result['anno_cluster_leiden']['group'].str.contains('Opc')[data.tl.result['anno_cluster_leiden']['group'].str.contains('Opc')].index.tolist())/len(data.cells.cell_name)}\n")
+    file.write(f"oli%: {len(data.tl.result['anno_cluster_leiden']['group'].str.contains('Oli')[data.tl.result['anno_cluster_leiden']['group'].str.contains('Oli')].index.tolist())/len(data.cells.cell_name)}\n")
+    file.write(f"per%: {len(data.tl.result['anno_cluster_leiden']['group'].str.contains('Per')[data.tl.result['anno_cluster_leiden']['group'].str.contains('Per')].index.tolist())/len(data.cells.cell_name)}\n")
