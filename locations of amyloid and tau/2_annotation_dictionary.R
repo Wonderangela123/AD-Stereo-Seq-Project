@@ -1,9 +1,13 @@
 library(SingleR)
 library(zellkonverter) 
+library(scater)
 
 ## read h5ad files into SingleCellExperiment objects
 test = readH5AD(file = '/work/aliu10/AD_Stereoseq_Project/processed/data/integrated.anndata.h5ad')
 ref = readH5AD(file = '/work/ygong/stereo_seq_public/MIT_AD.h5ad')
+
+assayNames(ref)[assayNames(ref) == "X"] <- "counts"
+ref = logNormCounts(ref)
 
 ## Obtain annotation dictionary
 ## labels: cell types; assay.type.test/ref: An integer scalar or string specifying the assay of test/ref containing the relevant expression matrix.
