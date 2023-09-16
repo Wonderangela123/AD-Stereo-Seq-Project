@@ -11,4 +11,4 @@ sed 's/B01809C2/B01809A3/g' 4_ann_dict_subtype.pbs > ../../B01809A3/GeneExpMatri
 sed 's/B01809C2/B01809A3/g' 5_tau_location.pbs > ../../B01809A3/GeneExpMatrix/5_tau_location.pbs
 
 cd ../../B01809A3/GeneExpMatrix/
-chmod 770 1_clustering.pbs 2_ann_dict.pbs 3_subtyping.pbs 4_ann_dict_subtype.pbs 5_tau_location.pbs clustering.py ann_dict.R subtyping.py ann_dict_subtype.R tau_location.py
+chmod 770 clustering.py ann_dict.R subtyping.py ann_dict_subtype.R tau_location.py 1_clustering.pbs 2_ann_dict.pbs 3_subtyping.pbs 4_ann_dict_subtype.pbs 5_tau_location.pbs
