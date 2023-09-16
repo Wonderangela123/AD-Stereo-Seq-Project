@@ -1,17 +1,17 @@
-sed 's/B01809C2/D02175A4/g' 1_clustering.pbs > ../../D02175A4/GeneExpMatrix/1_clustering.pbs
-sed 's/B01809C2/D02175A4/g' clustering.py > ../../D02175A4/GeneExpMatrix/clustering.py
+sed 's/B01809C2/D02175A6/g' 1_clustering.pbs > ../../D02175A6/GeneExpMatrix/1_clustering.pbs
+sed 's/B01809C2/D02175A6/g' clustering.py > ../../D02175A6/GeneExpMatrix/clustering.py
 
-sed 's/B01809C2/D02175A4/g' 2_ann_dict.pbs > ../../D02175A4/GeneExpMatrix/2_ann_dict.pbs
-sed 's/B01809C2/D02175A4/g' ann_dict.R > ../../D02175A4/GeneExpMatrix/ann_dict.R
+sed 's/B01809C2/D02175A6/g' 2_ann_dict.pbs > ../../D02175A6/GeneExpMatrix/2_ann_dict.pbs
+sed 's/B01809C2/D02175A6/g' ann_dict.R > ../../D02175A6/GeneExpMatrix/ann_dict.R
 
-sed 's/B01809C2/D02175A4/g' 3_subtyping.pbs > ../../D02175A4/GeneExpMatrix/3_subtyping.pbs
-sed 's/B01809C2/D02175A4/g' subtyping.py > ../../D02175A4/GeneExpMatrix/subtyping.py
+sed 's/B01809C2/D02175A6/g' 3_subtyping.pbs > ../../D02175A6/GeneExpMatrix/3_subtyping.pbs
+sed 's/B01809C2/D02175A6/g' subtyping.py > ../../D02175A6/GeneExpMatrix/subtyping.py
 
-sed 's/B01809C2/D02175A4/g' 4_ann_dict_subtype.pbs > ../../D02175A4/GeneExpMatrix/4_ann_dict_subtype.pbs
-sed 's/B01809C2/D02175A4/g' ann_dict_subtype.R > ../../D02175A4/GeneExpMatrix/ann_dict_subtype.R
+sed 's/B01809C2/D02175A6/g' 4_ann_dict_subtype.pbs > ../../D02175A6/GeneExpMatrix/4_ann_dict_subtype.pbs
+sed 's/B01809C2/D02175A6/g' ann_dict_subtype.R > ../../D02175A6/GeneExpMatrix/ann_dict_subtype.R
 
-sed 's/B01809C2/D02175A4/g' 5_tau_location.pbs > ../../D02175A4/GeneExpMatrix/5_tau_location.pbs
-sed 's/B01809C2/D02175A4/g' tau_location.py > ../../D02175A4/GeneExpMatrix/tau_location.py
+sed 's/B01809C2/D02175A6/g' 5_tau_location.pbs > ../../D02175A6/GeneExpMatrix/5_tau_location.pbs
+sed 's/B01809C2/D02175A6/g' tau_location.py > ../../D02175A6/GeneExpMatrix/tau_location.py
 
-cd ../../D02175A4/GeneExpMatrix/
+cd ../../D02175A6/GeneExpMatrix/
 chmod 770 1_clustering.pbs 2_ann_dict.pbs 3_subtyping.pbs 4_ann_dict_subtype.pbs 5_tau_location.pbs clustering.py ann_dict.R subtyping.py ann_dict_subtype.R tau_location.py
