@@ -1,6 +1,6 @@
 ## Python environment
-conda create -n ADstereo python=3.8
-conda activate ADstereo
+conda create -n stereo python=3.8
+conda activate stereo
 
 ## Development version
 git clone -b dev https://github.com/STOmics/stereopy.git
@@ -9,11 +9,12 @@ python setup.py install
 
 conda install -c conda-forge notebook
 conda install -c conda-forge scanpy
+conda install -c conda-forge anndata
 
 
 ## R environment
-conda create -n ADstereo-R
-conda activate ADstereo-R
+conda create -n st-R
+conda activate st-R
 
 conda install -c conda-forge r-base
 conda install -c conda-forge notebook
