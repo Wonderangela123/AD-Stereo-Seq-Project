@@ -46,10 +46,16 @@ merged_data.tl.batches_integrate(pca_res_key='pca', res_key='pca_integrated')
 
 # perform UMAP to check the consistency of different samples (check integration effects) 
 merged_data.tl.neighbors(pca_res_key='pca_integrated', n_pcs=50, res_key='neighbors_integrated')
-merged_data.tl.umap(pca_res_key='pca_integrated', neighbors_res_key='neighbors_integrated', res_key='umap_integrated')
+merged_data.tl.spatial_neighbors(neighbors_res_key='neighbors_integrated', res_key='spatial_neighbors') # compute spatial neighbors
+merged_data.tl.umap(pca_res_key='pca_integrated', neighbors_res_key='spatial_neighbors', res_key='umap_integrated')
 
 # UMAP plot
 # merged_data.plt.batches_umap(res_key='umap_integrated', title ='UMAP between samples')
+
+merged_data.tl.leiden(neighbors_res_key='spatial_neighbors',res_key='spatial_leiden')
+
+# find marker genes
+merged_data.tl.find_marker_genes(cluster_res_key='spatial_leiden', method='t_test', use_highly_genes=False, use_raw=True)
 
 merged_data.tl.raw_checkpoint()
 
@@ -58,4 +64,4 @@ st.io.write_h5ad(
         use_raw=True,
         use_result=True,
         key_record=None,
-        output="/work/aliu10/stereo_project/results/sample.h5ad")
+        output="/work/aliu10/stereo_project/results/")
