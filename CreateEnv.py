@@ -1,6 +1,6 @@
 ## Python environment
-conda create -n st python=3.8
-conda activate st
+conda create -n stereo python=3.8
+conda activate stereo
 
 ## Development version
 git clone -b dev https://github.com/STOmics/stereopy.git
