@@ -2,7 +2,6 @@ import scanpy as sc
 import stereo as st
 import anndata
 import os
-import matplotlib.pyplot as plt
 
 ## integrate samples
 samples = ["A02092E1", "B01809C2", "B02008C6", "B02008D2", "B02009F6", "C02248B5",
@@ -54,14 +53,20 @@ merged_data.tl.umap(pca_res_key='pca_integrated', neighbors_res_key='spatial_nei
 
 merged_data.tl.leiden(neighbors_res_key='spatial_neighbors',res_key='spatial_leiden')
 
+merged_data.tl.raw_checkpoint()
+
 # find marker genes
 merged_data.tl.find_marker_genes(cluster_res_key='spatial_leiden', method='t_test', use_highly_genes=False, use_raw=True)
-
-merged_data.tl.raw_checkpoint()
+merged_data.tl.filter_marker_genes(marker_genes_res_key='marker_genes',
+                                   min_fold_change=1,
+                                   min_in_group_fraction=0.25,
+                                   max_out_group_fraction=0.5,
+                                   res_key='marker_genes_filtered'
+)
 
 st.io.write_h5ad(
         merged_data,
         use_raw=True,
         use_result=True,
         key_record=None,
-        output="/work/aliu10/stereo_project/results/")
+        output="/work/aliu10/stereo_project/results/integrated.h5ad")
