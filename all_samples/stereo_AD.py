@@ -56,12 +56,13 @@ merged_data.tl.leiden(neighbors_res_key='spatial_neighbors',res_key='spatial_lei
 merged_data.tl.raw_checkpoint()
 
 # find marker genes
-merged_data.tl.find_marker_genes(cluster_res_key='spatial_leiden', method='t_test', use_highly_genes=False, use_raw=True)
+merged_data.tl.find_marker_genes(cluster_res_key='spatial_leiden', method='wilcoxon_test', use_highly_genes=False, use_raw=True, output = "/work/aliu10/stereo_project/results/marker_genes_wilcoxon.txt")
 merged_data.tl.filter_marker_genes(marker_genes_res_key='marker_genes',
                                    min_fold_change=1,
-                                   min_in_group_fraction=0.25,
-                                   max_out_group_fraction=0.5,
-                                   res_key='marker_genes_filtered'
+                                #    min_in_group_fraction=0.25,
+                                #    max_out_group_fraction=0.5,
+                                   res_key='marker_genes_filtered',
+                                   output = "/work/aliu10/stereo_project/results/marker_genes_filtered_wilcoxon.txt"
 )
 
 st.io.write_h5ad(
@@ -69,4 +70,4 @@ st.io.write_h5ad(
         use_raw=True,
         use_result=True,
         key_record=None,
-        output="/work/aliu10/stereo_project/results/integrated.h5ad")
+        output="/work/aliu10/stereo_project/results/integrated_wilcoxon.h5ad")
