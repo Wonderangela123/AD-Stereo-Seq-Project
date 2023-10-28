@@ -21,12 +21,18 @@ conda install -c conda-forge notebook
 conda install -c conda-forge r-irkernel  ## use R in notebook
 
 conda install -c conda-forge r-seurat
+conda install -c conda-forge r-hdf5r
 
 ## install Bioconda packages in R
 if (!require("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
 
 BiocManager::install("SingleR")
+
+if (!requireNamespace("remotes", quietly = TRUE)) {
+  install.packages("remotes")
+}
+remotes::install_github("mojaveazure/seurat-disk")
 
 ## install "tar.gz" in linux 
 ## download from https://bioconductor.org/packages/release/bioc/src/contrib/zellkonverter_1.10.1.tar.gz
