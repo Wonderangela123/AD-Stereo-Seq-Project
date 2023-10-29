@@ -92,6 +92,7 @@ data1.tl.single_r(ref_exp_data=ref, ref_use_col='diagnosis', cluster_res_key='sp
 ## Draw plots
 # Extract cell names of tau from data1
 tau = data1.cells.cell_name[data1.tl.result['annotation']['group'].str.contains('case')]
+
 # Identify which cells in 'data' match the cell names in 'tau'
 id_tau = np.isin(stereo_list[5].cells.cell_name, tau)
 # If match then 'red' otherwise 'grey'
