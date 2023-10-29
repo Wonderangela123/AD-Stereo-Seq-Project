@@ -4,6 +4,8 @@ import scanpy as sc
 import anndata
 import os
 import numpy as np
+import matplotlib.pyplot as plt
+from matplotlib.lines import Line2D
 
 ## Integration
 samples = ["A02092E1", "B01809C2", "B02008C6", "B02008D2", "B02009F6", "C02248B5",
