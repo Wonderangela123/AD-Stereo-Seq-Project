@@ -1,9 +1,12 @@
 import stereo as st
 from stereo.core.stereo_exp_data import AnnBasedStereoExpData
+
 import scanpy as sc
 import anndata
 import os
 import numpy as np
+import re
+
 import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
 
@@ -66,46 +69,53 @@ for i in range(12):
 ## Cell type annotation cluster scatter plots
 # stereo_list[8].plt.cluster_scatter(res_key='anno_leiden_regroup')
 
-## Extract neurons
+## Extract neurons in case samples
+merged_data.tl.result['diagnosis'] = merged_data.cells['diagnosis']
 id_neuron = merged_data.tl.result['anno_leiden']['group'].str.contains('excitatory neurons')
 id_neuron = id_neuron[id_neuron].index.tolist()
+id_case = merged_data.tl.result['diagnosis']['group'].str.contains('case')
+id_case = id_case[id_case].index.tolist()
+id_neuron_case= list(set(id_neuron).intersection(set(id_case)))
 data1 = merged_data
-data1.cells.cell_name = merged_data.cells.cell_name[id_neuron]
-data1.exp_matrix = merged_data.exp_matrix[id_neuron]
-data1.position = merged_data.position[id_neuron, :]
-data1.position_z = merged_data.position_z[id_neuron, :]
+data1.cells.cell_name = merged_data.cells.cell_name[id_neuron_case]
+data1.exp_matrix = merged_data.exp_matrix[id_neuron_case]
+data1.position = merged_data.position[id_neuron_case, :]
 
 ## Normalizing data should be skipped for cell subtyping because normalize total counts over all genes "per cell" such that each cell has the same total count after normalization in the last step. 
-## PCA
+## PCA'7
 data1.tl.pca(use_highly_genes=False, n_pcs=50, res_key='pca')
 ## UMAP
 data1.tl.neighbors(pca_res_key='pca', n_pcs=50, res_key='neighbors')
-data1.tl.spatial_neighbors(neighbors_res_key='neighbors', res_key='spatial_neighbors') # compute spatial neighbors
-data1.tl.umap(pca_res_key='pca', neighbors_res_key='spatial_neighbors', res_key='spatial_umap')
+data1.tl.umap(pca_res_key='pca', neighbors_res_key='neighbors', res_key='umap')
 ## Clustering
-data1.tl.leiden(neighbors_res_key='spatial_neighbors',res_key='spatial_leiden', resolution=1.2)
+data1.tl.leiden(neighbors_res_key='neighbors',res_key='leiden')
 
 ## Annotation
 ref_file = '/work/aliu10/stereo_project/reference.h5ad'
 ref = AnnBasedStereoExpData(ref_file)
-data1.tl.single_r(ref_exp_data=ref, ref_use_col='diagnosis', cluster_res_key='spatial_leiden', res_key='annotation')
+data1.tl.single_r(ref_exp_data=ref, ref_use_col='diagnosis', cluster_res_key='leiden', res_key='annotation')
 # data1.plt.cluster_scatter(res_key='annotation')
 
 ## Draw plots
-# Extract cell names of tau from data1
-tau = data1.cells.cell_name[data1.tl.result['annotation']['group'].str.contains('case')]
+# six cases
+for i in samples[0:5]:
+    # Extract cell names of tau from data1
+    tau = data1.cells.cell_name[data1.tl.result['annotation']['group'].str.contains('case')]
 
-# Identify which cells in 'data' match the cell names in 'tau'
-id_tau = np.isin(stereo_list[5].cells.cell_name, tau)
-# If match then 'red' otherwise 'grey'
-stereo_list[5].cells['tau'] = np.where(id_tau, 'red', 'grey')
-stereo_list[5].cells['tau'] = stereo_list[5].cells['tau'].astype('category')
-# plot the cells by 'tau' (red)
-fig, ax = plt.subplots(figsize=(10, 10))
-plt.scatter(stereo_list[5].position[:,0], stereo_list[5].position[:,1], c=stereo_list[5].cells['tau'], s=5)
-legend_elements = [Line2D([0], [0], marker='o', color='w', label='Tau', markersize=10, markerfacecolor='red'),
-                   Line2D([0], [0], marker='o', color='w', label='Others', markersize=10, markerfacecolor='grey')]
-# Add the legend to the plot
-ax.legend(handles=legend_elements, fontsize=14)
-ax.invert_yaxis() # change the direction of y axis
-fig.savefig(os.path.join(path_dir, "{}_tau_location.png".format(samples[5]))
+    # Identify which cells in 'data' match the cell names in 'tau'
+    tau = np.array([re.sub(r'-\d+$', '', item) for item in tau])
+    id_tau = np.isin(stereo_list[i].cells.cell_name, tau)
+
+    # If match then 'red' otherwise 'grey'
+    stereo_list[i].cells['tau'] = np.where(id_tau, 'red', 'grey')
+    stereo_list[i].cells['tau'] = stereo_list[i].cells['tau'].astype('category')
+
+    # plot the cells by 'tau' (red)
+    fig, ax = plt.subplots(figsize=(10, 10))
+    plt.scatter(stereo_list[i].position[:,0], stereo_list[i].position[:,1], c=stereo_list[i].cells['tau'], s=5)
+    legend_elements = [Line2D([0], [0], marker='o', color='w', label='Tau', markersize=10, markerfacecolor='red'),
+                       Line2D([0], [0], marker='o', color='w', label='Others', markersize=10, markerfacecolor='grey')]
+    # Add the legend to the plot
+    ax.legend(handles=legend_elements, fontsize=14)
+    ax.invert_yaxis() # change the direction of y axis
+    fig.savefig(os.path.join(path_dir, "case_{}_tau_location.png".format(samples[i])))
