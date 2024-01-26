@@ -20,6 +20,8 @@ conda install -c conda-forge r-base
 conda install -c conda-forge notebook
 conda install -c conda-forge r-irkernel  ## use R in notebook
 
+## conda install conda-forge::r-devtools
+
 conda install -c conda-forge r-seurat
 conda install -c conda-forge r-hdf5r
 
